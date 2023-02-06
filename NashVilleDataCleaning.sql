@@ -1,3 +1,5 @@
+-- KUDOS to https://www.youtube.com/@AlexTheAnalyst
+
 /*
 
 Cleaning Data in SQL Queries
