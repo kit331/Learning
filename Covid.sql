@@ -1,3 +1,5 @@
+-- KUDOS to https://www.youtube.com/@AlexTheAnalyst
+
 Select * FROM PortfolioProject..CovidDeath$
 WHERE continent is not null
 order by 3,4
