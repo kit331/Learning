@@ -34,11 +34,30 @@ ORDER BY A DESC -- FURNISHING HAS THE MOST PRODUCT
 
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
---2. Find how many Unique product in Product ID
+--5. Fin dhow many store in each state
+
+SELECT DISTINCT PropertyState, COUNT(PropertyCity) as A
+FROM [Store].[dbo].[TR_PropertyInfo]
+GROUP BY PropertyState 
+ORDER BY A DESC
 
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
---2. Find how many Unique product in Product ID
+--6. Find how much total quantity sold for each product
+
+SELECT ProductID, SUM(Quantity) as A
+FROM [Store].[dbo].[TR_OrderDetails]
+GROUP BY ProductID
+ORDER BY A DESC -- ProductID 78 has the highest sales quantity of 153
+
+--6.1 Find revenue for each productID
+
+SELECT DISTINCT OrderDetails.ProductID, SUM(Quantity) AS TotalQuantity, Price, (SUM(Quantity) * Price) as Revenue
+FROM [Store].[dbo].[TR_OrderDetails] as OrderDetails
+JOIN [Store].[dbo].[TR_Products] as Products on OrderDetails.ProductID = Products.ProductID
+GROUP BY OrderDetails.ProductID, Price
+ORDER BY OrderDetails.ProductID  
+
 
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
