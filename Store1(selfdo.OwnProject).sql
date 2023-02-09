@@ -52,22 +52,25 @@ FROM [Store].[dbo].[TR_OrderDetails]
 GROUP BY ProductID
 ORDER BY A DESC -- ProductID 78 has the highest sales quantity of 153
 
---6.1 Find revenue for each productID
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--7. Find revenue for each productID
 
-SELECT DISTINCT OrderDetails.ProductID, SUM(Quantity) AS TotalQuantity, Price, (SUM(Quantity) * Price) as Revenue
+SELECT DISTINCT OrderDetails.ProductID, ProductName, SUM(Quantity) AS TotalQuantity, Price, (SUM(Quantity) * Price) as Revenue
 FROM [Store].[dbo].[TR_OrderDetails] as OrderDetails
 JOIN [Store].[dbo].[TR_Products] as Products on OrderDetails.ProductID = Products.ProductID
-GROUP BY OrderDetails.ProductID, Price
-ORDER BY OrderDetails.ProductID  
-
-
+GROUP BY OrderDetails.ProductID, Price, ProductName
+ORDER BY Revenue DESC 
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
---2. Find how many Unique product in Product ID
+--8. Find which city bring the most revenue
+ 
+SELECT Property.PropertyCity, SUM(OrderDetails.Quantity * Products.Price) as Revenue
+FROM [Store].[dbo].[TR_OrderDetails] as OrderDetails
+JOIN [Store].[dbo].[TR_Products] as Products on OrderDetails.ProductID = Products.ProductID
+JOIN [Store].[dbo].[TR_PropertyInfo] as Property on OrderDetails.PropertyID = Property.Prop_ID
+GROUP BY Property.PropertyCity
+ORDER BY Revenue DESC 
 
-
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
---2. Find how many Unique product in Product ID
 
 
 
